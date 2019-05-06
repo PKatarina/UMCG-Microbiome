@@ -7,7 +7,7 @@ TAX_DICT={'kingdom': 'k', 'phylum':'p','class':'c',
 'order':'o', 'family':'f', 'genus': 'g', 'species':'s',
 'strain':'t'}
 
-def pie_chart_drawer(a_biom_table,taxonomy):
+def pie_chart_drawer(a_biom_table,taxonomy="species"):
     global TAX_DICT
     """
     Input table and tax level on witch you want 
@@ -36,4 +36,4 @@ mytable = Biom_table.Biom_table(a_name)
 
 print (mytable)
 
-pie_chart_drawer(mytable, 'phylum')
+pie_chart_drawer(mytable)

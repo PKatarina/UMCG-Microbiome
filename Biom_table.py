@@ -38,7 +38,7 @@ class Biom_table:
         """
         return(self.rows)
 
-    def tax_abundance(self,taxonomy):
+    def tax_abundance(self,taxonomy='s'):
         """
         Takes a taxonomy group and returns a list of tuples
         witch contains the name of the taxonomy group and the
