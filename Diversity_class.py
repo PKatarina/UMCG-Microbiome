@@ -62,8 +62,9 @@ class Diversity(Biom_table.Biom_table):
                     U+=species_1[1]/100
                     V+=species_2[1]/100
         if U==0 or V==0:
-            print("There are no shared species from these two samples")
-            return 
+            raise Exception("There are no shared species from these two samples")
+            # print("There are no shared species from these two samples")
+            # return 
         
         return round((U*V)/(U+V-U*V),2)
 
