@@ -1,6 +1,5 @@
 import Biom_table
 import os
-import numpy
 import matplotlib.pyplot as plt
 
 
