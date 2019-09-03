@@ -68,18 +68,36 @@ class Diversity(Biom_table.Biom_table):
         
         return round((U*V)/(U+V-U*V),2)
 
+    def top_x_abundance(self,list_lenght,taxonomy):
+        """
+
+        list_lenght: Lenght of the list
+        taxonomy: taxonomy level
+        Returns a list of input lenght of top taxonomy level sorted by abundance
+
+        """
+        counter=0
+        a_list=[]
+        for species in self.tax_abundance(taxonomy):
+            a_list.append(species)
+            counter+=1
+            if counter == list_lenght:
+                break
+
+        return a_list
+
+
 
 
 a_name= "example1_metaphlan.txt"
 
-
 #mytable = Diversity(Biom_table.Biom_table(a_name)
 mytable = Diversity(a_name)
 
-print (mytable, "Richness: ",mytable.richness(), "Shannon index: ", mytable.shannon_index(), "Simpson index: ", mytable.simpson_index())
+print (mytable,'\n',"Richness: ",mytable.richness(), "Shannon index: ", mytable.shannon_index(), "Simpson index: ", mytable.simpson_index())
 
 sample2_abundance=[("Bacteroidetes", 50.00),("Proteobacteria",20.00),("Firmicutes",20.00),("Dummy",10.00)]
 
 print("Jaccard index: ",mytable.jaccard_index(sample2_abundance, 'p'))
 
-print (mytable.tax_abundance('p'))
+print('List of top 5 species sored by abundance ', mytable.top_x_abundance(5,'s'))
