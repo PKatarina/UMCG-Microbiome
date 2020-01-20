@@ -1,39 +1,38 @@
-import Biom_table
 import matplotlib.pyplot as plt
 
+TAX_DICT = {'kingdom': 'k', 'phylum': 'p', 'class': 'c',
+            'order': 'o', 'family': 'f', 'genus': 'g',
+            'species': 's', 'strain': 't'}
 
 
-TAX_DICT={'kingdom': 'k', 'phylum':'p','class':'c',
-'order':'o', 'family':'f', 'genus': 'g', 'species':'s',
-'strain':'t'}
-
-def pie_chart_drawer(a_biom_table,taxonomy="species"):
+def pie_chart_drawer(a_biom_table, chart_type, taxonomy="p"):
+    """
+        Input table and tax level on witch you want
+        to make a pie chart
+        """
     global TAX_DICT
-    """
-    Input table and tax level on witch you want 
-    to make a pie chart
-    """
-    plt.figure(figsize=(5,5))
-    label=[]
-    values=[]
-    other=0
-    for data in a_biom_table.tax_abundance(TAX_DICT[taxonomy]):
+
+    plt.figure(figsize=(6, 6))
+
+    label = []
+    sizes = []
+    other = 0
+    data_set = []
+
+    if chart_type == 'Abundance':
+        data_set = a_biom_table.tax_abundance(taxonomy)
+    elif chart_type == 'Richness':
+        data_set = a_biom_table.tax_richness(taxonomy)
+
+    for data in data_set:
         if data[1] < 1.0:
-            other+=data[1]
+            other += data[1]
         else:
             label.append(data[0])
-            values.append(data[1])
+            sizes.append(data[1])
     label.append('Other')
-    values.append(other)
+    sizes.append(other)
 
-    plt.pie(values,labels=label)
+    plt.pie(sizes, labels=label, autopct='%1.1f%%')
 
     plt.show()
-    
-
-a_name= "example1_metaphlan.txt"
-mytable = Biom_table.Biom_table(a_name)
-
-print (mytable)
-
-pie_chart_drawer(mytable)
