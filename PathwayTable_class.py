@@ -1,6 +1,5 @@
 import csv
 
-
 class PathwayTable:
 
     """
@@ -94,15 +93,3 @@ class PathwayTable:
         Returns the table rows as a list of lists
         """
         return self.rows
-
-
-def tester():
-    my_pathway_table = PathwayTable('example1_pathabundance.tsv')
-    print('String Representation', my_pathway_table)
-    print('Pathway table (list representation)', my_pathway_table.get_rows())
-    print('Total abundance: ', my_pathway_table.get_total_abundance())
-    print('Merge_sort function: ', my_pathway_table.merge_sort(my_pathway_table.get_rows()))
-    print('Top pathways: ', my_pathway_table.get_top_pathways(6))
-
-
-tester()
