@@ -1,7 +1,7 @@
 # UMCG-Microbiome
 UMCG Microbiome does simple analyzes and graphs of metagenomical data and _bacterial pathway data_. 
 
-##Content:
+## Content:
 1. BiomTable_class: reading and parsing csv metaphlan
 2. Pie_chart: pie chart of a taxonomy group
 3. Diversity_class: calculating shannon, simpson and jaccard index from abundance
@@ -11,7 +11,7 @@ UMCG Microbiome does simple analyzes and graphs of metagenomical data and _bacte
 
 7. Examples and database folder that can be used to try out the code
 
-##Instructions
+## Instructions
 For analyzes of metagenomical data BiomTable_class opens Metaphlan files and is used in other scripts. 
 Download this first. To use other scripts download it and get an appropriate example file. 
 PathwayTable_class is only script that does an analyzes of bacterial pathway data.
