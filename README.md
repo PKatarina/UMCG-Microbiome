@@ -6,7 +6,7 @@ UMCG Microbiome does simple analyzes and graphs of metagenomical data and _bacte
 2. Pie_chart: pie chart of a taxonomy group
 3. Diversity_class: calculating shannon, simpson and jaccard index from abundance
 4. Box_plot: draws a box plot for a set of metaphlan data
-5. PathwayTable_class: reading and parsing csv pathway abundance files
+5. PathwayTable_class: reading and filtered pathway abundance file
 6. Test_script
 
 7. Examples and database folder that can be used to try out the code
