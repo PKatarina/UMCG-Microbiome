@@ -1,5 +1,5 @@
 import BiomTable_class
-import Pie_chart
+import Data_chart
 import Box_plot
 import Diversity_class
 import PathwayTable_class
@@ -12,14 +12,14 @@ def BiomTable_class_tester():
     print(BT_test.tax_abundance('phylum'))
     # print(BT_test.tax_abundance('asdf'))
     print(BT_test.tax_abundance('k'))
-    # print(BT_test.tax_richness('phylum'))
-    # print(BT_test.tax_richness('g'))
+    print(BT_test.tax_richness('phylum'))
+    print(BT_test.tax_richness('g'))
 
 
-def BiomTable_pie_chart_tester():
+def BiomTable_data_chart_tester():
     PC_test = BiomTable_class.BiomTable("example1_metaphlan.txt")
-    Pie_chart.pie_chart_drawer(PC_test, 'Abundance')
-    Pie_chart.pie_chart_drawer(PC_test, 'Richness', 'p')
+    Data_chart.data_chart_drawer(PC_test, 'Abundance', graph_type= 'pie')
+    #Data_chart.data_chart_drawer(PC_test, 'Abundance', taxonomy='g')
 
 
 def BiomTable_box_plot_tester():
@@ -46,14 +46,14 @@ def PathwayTable_class_tester():
     print('Total abundance: ', PT_test.get_total_abundance())
     print('Top pathways: ', PT_test.get_top_pathways(6))
 
-    for row1 in PT_test.get_rows():
+    for row1 in PT_test.get_table():
         print(row1[1], row1[0][0:10])
 
     for row2 in PT_test.get_top_pathways(10):
         print(row2)
 
-# BiomTable_pie_chart_tester()
-# BiomTable_class_tester()
+BiomTable_data_chart_tester()
+#BiomTable_class_tester()
 # BiomTable_box_plot_tester()
-# Diversity_class_tester()
-# PathwayTable_clas_tester()
+#Diversity_class_tester()
+#PathwayTable_class_tester()
