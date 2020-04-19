@@ -3,7 +3,7 @@ import csv
 TAX_DICT = {"kingdom": 'k', 'phylum': 'p', 'class': 'c', 'order': 'o',
             'family': 'f', 'genus': 'g', 'species': 's', 'strain': 't'}
 
-TAX_NUM_DICT={'k':1,'p':2,'c':3,'o':4,'f':5,'g':6,'s':7}
+TAX_NUM_DICT = {'k': 1, 'p': 2, 'c': 3, 'o': 4, 'f': 5, 'g': 6, 's': 7}
 
 
 class BiomTable:
@@ -16,6 +16,7 @@ class BiomTable:
         self.abundance = []
         self.table_name = table_name
         self.table = []
+        self.richness = []
         with open(self.table_name) as csvfile:
             spamreader = csv.reader(csvfile, delimiter='|')
             for line in spamreader:
@@ -35,16 +36,17 @@ class BiomTable:
         """
         return self.table
 
-    def tax_abundance(self, taxonomy='species'):
+    def tax_abundance(self, taxonomy='phylum'):
         """
         Takes a taxonomy group and returns a list of tuples
         witch contains the name of the taxonomy group and the
          respective abundance as a float
         """
+        taxonomy_shortcode = ''
         if taxonomy in TAX_DICT or taxonomy in TAX_DICT.values():
             if len(taxonomy) > 1:
                 taxonomy_shortcode = TAX_DICT[taxonomy]
-            elif len(taxonomy)==1 :
+            elif len(taxonomy) == 1:
                 taxonomy_shortcode = taxonomy
         else:
             raise NameError("Invalid taxonomy level name input")
@@ -74,6 +76,7 @@ class BiomTable:
         of species in that taxa
         """
 
+        taxonomy_shortcode = ''
         if taxonomy in TAX_DICT or taxonomy in TAX_DICT.values():
             if len(taxonomy) > 1:
                 taxonomy_shortcode = TAX_DICT[taxonomy]
@@ -82,13 +85,16 @@ class BiomTable:
         else:
             raise NameError("Invalid taxonomy level name input")
 
+        if taxonomy_shortcode == 's':
+            raise Exception("Can't calculate species richness")
+
         richness = []
         self.richness = []
 
         for row in self.table:
             if len(row) == TAX_NUM_DICT[taxonomy_shortcode]:
                 temp = row[-1].index('\t')
-                richness.append([row[-1][3:temp],0])
+                richness.append([row[-1][3:temp], 0])
 
         for row in self.table:
             if len(row) == TAX_NUM_DICT['s']:
@@ -97,6 +103,6 @@ class BiomTable:
                         idx[1] += 1
 
         for data in richness:
-            self.richness.append((data[0],data[1]))
+            self.richness.append((data[0], data[1]))
 
         return self.richness

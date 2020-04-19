@@ -2,7 +2,7 @@ import BiomTable_class
 import matplotlib.pyplot as plt
 
 
-def box_plot_drawer(sample_dir, sample_number,chart_type, taxonomy='p'):
+def box_plot_drawer(sample_dir, sample_number, chart_type, taxonomy='p'):
     """
     The function opens a directory with metaphlan data. 
     First function argument is directory name.

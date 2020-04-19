@@ -1,5 +1,5 @@
 import BiomTable_class
-import math
+import numpy as np
 
 
 class Diversity(BiomTable_class.BiomTable):
@@ -27,7 +27,7 @@ class Diversity(BiomTable_class.BiomTable):
         """
         h = 0
         for data in self.tax_abundance(taxonomy):
-            h += data[1] / 100 * math.log(data[1] / 100)
+            h += data[1] / 100 * np.log(data[1] / 100)
         return round(-h, 2)
 
     def simpson_index(self, taxonomy='s'):
@@ -37,7 +37,7 @@ class Diversity(BiomTable_class.BiomTable):
         """
         d = 0
         for data in self.tax_abundance(taxonomy):
-            d += math.pow(data[1] / 100, 2)
+            d += np.power(data[1] / 100, 2)
 
         return round(1 - d, 2)
 
@@ -64,7 +64,7 @@ class Diversity(BiomTable_class.BiomTable):
 
         return round((u * v) / (u + v - u * v), 2)
 
-    def top_x_abundance(self, list_lenght, taxonomy = 's'):
+    def top_x_abundance(self, list_lenght, taxonomy='s'):
         """
         list_lenght: Lenght of the list
         taxonomy: taxonomy level
