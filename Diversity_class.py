@@ -1,9 +1,10 @@
-import BiomTable_class
 import numpy as np
+import BiomTable_class
 
 
 class Diversity(BiomTable_class.BiomTable):
     """
+
     To initialize class input filename of a table
     """
 
@@ -14,13 +15,13 @@ class Diversity(BiomTable_class.BiomTable):
     def __str__(self):
         return "This is a diversity class"
 
-    def richness(self, taxonomy='s'):
+    def richness_(self, taxonomy='species'):
         """
         Returns the number of different species in the sample
         """
         return len(self.tax_abundance(taxonomy))
 
-    def shannon_index(self, taxonomy='s'):
+    def shannon_index(self, taxonomy='species'):
         """
         Calculates shannon index (H) of sample
         H=-SUM(pi*ln(pi))
@@ -30,7 +31,7 @@ class Diversity(BiomTable_class.BiomTable):
             h += data[1] / 100 * np.log(data[1] / 100)
         return round(-h, 2)
 
-    def simpson_index(self, taxonomy='s'):
+    def simpson_index(self, taxonomy='species'):
         """
         Calculates simpson index (d) of sample
         d= 1-SUM(pi^2)
@@ -41,7 +42,7 @@ class Diversity(BiomTable_class.BiomTable):
 
         return round(1 - d, 2)
 
-    def jaccard_index(self, abundance_2, taxonomy='s'):
+    def jaccard_index(self, abundance_2, taxonomy='species'):
         """
         Takes a list of species abundances for another sample and calculates the jaccard index
         for both samples. Jaccard index represents the similarity of species and their abundance
@@ -64,7 +65,7 @@ class Diversity(BiomTable_class.BiomTable):
 
         return round((u * v) / (u + v - u * v), 2)
 
-    def top_x_abundance(self, list_lenght, taxonomy='s'):
+    def top_x_abundance(self, list_lenght, taxonomy='species'):
         """
         list_lenght: Lenght of the list
         taxonomy: taxonomy level

@@ -8,8 +8,10 @@ TAX_NUM_DICT = {'k': 1, 'p': 2, 'c': 3, 'o': 4, 'f': 5, 'g': 6, 's': 7}
 
 class BiomTable:
     """
-    Class for biom tables
+    Class for biom table data.
+
     """
+
     global TAX_DICT, TAX_NUM_DICT
 
     def __init__(self, table_name):
@@ -28,7 +30,7 @@ class BiomTable:
         """
         Returns a string representation of the table name
         """
-        return "Table name" + str(self.table_name)
+        return "Table name: " + str(self.table_name)
 
     def get_table(self):
         """
@@ -36,25 +38,36 @@ class BiomTable:
         """
         return self.table
 
+    def get_tax_shortcode(self, taxonomy, tax_number=False):
+
+        if tax_number and taxonomy in TAX_DICT:
+            return TAX_NUM_DICT[TAX_DICT[taxonomy]]
+        elif taxonomy in TAX_DICT:
+            return TAX_DICT[taxonomy]
+        else:
+            raise NameError("Invalid taxonomy level name input")
+
     def tax_abundance(self, taxonomy='phylum'):
         """
         Takes a taxonomy group and returns a list of tuples
         witch contains the name of the taxonomy group and the
          respective abundance as a float
         """
-        taxonomy_shortcode = ''
-        if taxonomy in TAX_DICT or taxonomy in TAX_DICT.values():
-            if len(taxonomy) > 1:
-                taxonomy_shortcode = TAX_DICT[taxonomy]
-            elif len(taxonomy) == 1:
-                taxonomy_shortcode = taxonomy
-        else:
-            raise NameError("Invalid taxonomy level name input")
+        # taxonomy_shortcode = ''
+        # if taxonomy in TAX_DICT or taxonomy in TAX_DICT.values():
+        #     if len(taxonomy) > 1:
+        #         taxonomy_shortcode = TAX_DICT[taxonomy]
+        #     elif len(taxonomy) == 1:
+        #         taxonomy_shortcode = taxonomy
+        # else:
+        #     raise NameError("Invalid taxonomy level name input")
+
+        taxonomy_shortcode = self.get_tax_shortcode(taxonomy)
 
         self.abundance = []
+
         for lines in self.table:
             if taxonomy_shortcode == lines[-1][0]:
-                # print (lines[-1])
                 checker = True
                 tax_name = ''
                 abundance_str = ''
@@ -76,14 +89,8 @@ class BiomTable:
         of species in that taxa
         """
 
-        taxonomy_shortcode = ''
-        if taxonomy in TAX_DICT or taxonomy in TAX_DICT.values():
-            if len(taxonomy) > 1:
-                taxonomy_shortcode = TAX_DICT[taxonomy]
-            elif len(taxonomy) == 1:
-                taxonomy_shortcode = taxonomy
-        else:
-            raise NameError("Invalid taxonomy level name input")
+        taxonomy_shortcode = self.get_tax_shortcode(taxonomy)
+        taxonomy_number = self.get_tax_shortcode(taxonomy, tax_number=True)
 
         if taxonomy_shortcode == 's':
             raise Exception("Can't calculate species richness")
@@ -92,14 +99,14 @@ class BiomTable:
         self.richness = []
 
         for row in self.table:
-            if len(row) == TAX_NUM_DICT[taxonomy_shortcode]:
+            if len(row) == taxonomy_number:
                 temp = row[-1].index('\t')
                 richness.append([row[-1][3:temp], 0])
 
         for row in self.table:
-            if len(row) == TAX_NUM_DICT['s']:
+            if len(row) == self.get_tax_shortcode('species', tax_number=True):
                 for idx in richness:
-                    if row[TAX_NUM_DICT[taxonomy_shortcode]-1][3:] == idx[0]:
+                    if row[taxonomy_number-1][3:] == idx[0]:
                         idx[1] += 1
 
         for data in richness:
